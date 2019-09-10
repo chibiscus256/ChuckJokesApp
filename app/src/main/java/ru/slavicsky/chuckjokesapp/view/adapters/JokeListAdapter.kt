@@ -21,6 +21,7 @@ class JokeListAdapter(private val jContext: Context) :
 
     override fun getItemCount(): Int {
         return if (::jokes.isInitialized) jokes.size else 0
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

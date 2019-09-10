@@ -2,12 +2,10 @@ package ru.slavicsky.chuckjokesapp.utils.extensions
 
 import android.text.Editable
 import retrofit2.Call
-import retrofit2.CallAdapter
 import retrofit2.Callback
 import retrofit2.Response
 import ru.slavicsky.chuckjokesapp.api.services.ApiFactory
 import ru.slavicsky.chuckjokesapp.models.GetJokesResponse
-import ru.slavicsky.chuckjokesapp.models.JokeResponse
 import ru.slavicsky.chuckjokesapp.view.adapters.JokeListAdapter
 
 fun reload(input: Editable, adapter: JokeListAdapter) {
@@ -26,8 +24,6 @@ fun reload(input: Editable, adapter: JokeListAdapter) {
             response: Response<GetJokesResponse>
         ) {
             jokesResponse = response.body()
-            println("=====================================================")
-            println(jokesResponse)
             adapter.jokes = jokesResponse!!.jokeResponse
         }
     })

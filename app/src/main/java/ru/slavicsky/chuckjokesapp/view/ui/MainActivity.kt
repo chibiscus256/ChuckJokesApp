@@ -5,6 +5,7 @@ import android.text.Editable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.button_and_edittext.*
 import ru.slavicsky.chuckjokesapp.R
 import ru.slavicsky.chuckjokesapp.models.JokeResponse
 import ru.slavicsky.chuckjokesapp.utils.extensions.reload
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         jokeAdapter = JokeListAdapter(this)
+        recyclerView.adapter = jokeAdapter
 
         resultsButton.setOnClickListener {
             reload(input = editText.text, adapter = jokeAdapter)
