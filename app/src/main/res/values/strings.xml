@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ChuckJokesApp</string>
+    <string name="button_text">RELOAD</string>
+    <string name="search">Count</string>
+    <string name="sample_text">\"Sample Text\" is the placeholder text automatically generated when superimposing a caption onto a video clip in the Sony Vegas Pro video-editing software. In montage parodies on YouTube, the filler phrase is often left unchanged for comedic effect.</string>
+</resources>
