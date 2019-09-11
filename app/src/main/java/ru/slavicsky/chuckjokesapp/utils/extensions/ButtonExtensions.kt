@@ -9,7 +9,7 @@ import ru.slavicsky.chuckjokesapp.models.GetJokesResponse
 import ru.slavicsky.chuckjokesapp.view.adapters.JokeListAdapter
 
 fun reload(input: Editable, adapter: JokeListAdapter) {
-    val number = Integer.parseInt(input.toString())
+    var number = Integer.parseInt(input.toString())
     val jokesService = ApiFactory.chuckNorrisApi
     val call = jokesService.getJokes(number = number)
     var jokesResponse: GetJokesResponse?

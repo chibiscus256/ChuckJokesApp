@@ -27,19 +27,11 @@ object RetrofitFactory {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    //Not logging the authkey if not debug
     private val client =
-        if (BuildConfig.DEBUG) {
-            OkHttpClient().newBuilder()
-                .addInterceptor(authInterceptor)
-                .addInterceptor(loggingInterceptor)
-                .build()
-        } else {
             OkHttpClient().newBuilder()
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(authInterceptor)
                 .build()
-            }
 
             fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
                 .client(client)

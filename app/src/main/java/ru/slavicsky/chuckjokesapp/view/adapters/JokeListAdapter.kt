@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.slavicsky.chuckjokesapp.R
-import ru.slavicsky.chuckjokesapp.models.GetJokesResponse
 import ru.slavicsky.chuckjokesapp.models.JokeResponse
 import ru.slavicsky.chuckjokesapp.view.viewholder.ViewHolder
 
@@ -21,7 +20,6 @@ class JokeListAdapter(private val jContext: Context) :
 
     override fun getItemCount(): Int {
         return if (::jokes.isInitialized) jokes.size else 0
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

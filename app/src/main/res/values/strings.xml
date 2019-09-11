@@ -15,5 +15,7 @@
     <string name="button_text">RELOAD</string>
     <string name="search">input count</string>
     <string name="sample_text">sample text</string>
+    <string name="title_web">Web</string>
+    <string name="title_jokes">Jokes</string>
 
 </resources>
