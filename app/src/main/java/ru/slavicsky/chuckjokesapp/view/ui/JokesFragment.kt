@@ -16,9 +16,6 @@ import ru.slavicsky.chuckjokesapp.models.JokeResponse
 import ru.slavicsky.chuckjokesapp.utils.extensions.reload
 import ru.slavicsky.chuckjokesapp.view.adapters.JokeListAdapter
 
-
-
-
 class JokesFragment : Fragment() {
 
     lateinit var jokes: List<JokeResponse>
