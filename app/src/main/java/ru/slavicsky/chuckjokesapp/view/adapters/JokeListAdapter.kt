@@ -1,19 +1,17 @@
 package ru.slavicsky.chuckjokesapp.view.adapters
 
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.slavicsky.chuckjokesapp.R
 import ru.slavicsky.chuckjokesapp.models.JokeResponse
-import ru.slavicsky.chuckjokesapp.utils.extensions.fix
 import ru.slavicsky.chuckjokesapp.view.viewholder.ViewHolder
 
 class JokeListAdapter(private val jContext: Context) :
     RecyclerView.Adapter<ViewHolder>() {
 
-    lateinit var jokes: List<JokeResponse>
+    var jokes: MutableList<JokeResponse> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.joke_item, parent, false)
@@ -21,11 +19,11 @@ class JokeListAdapter(private val jContext: Context) :
     }
 
     override fun getItemCount(): Int {
-        return if (::jokes.isInitialized) jokes.size else 0
+        return jokes.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val joke = jokes[position]
-        holder.jokeText!!.text = fix(joke.value)
+        holder.bindView(joke)
     }
 }

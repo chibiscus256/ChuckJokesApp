@@ -9,7 +9,7 @@
     android:layout_marginRight="5dp"
     card_view:cardCornerRadius="5dp">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
@@ -25,5 +25,5 @@
             android:textStyle="bold"
             android:text="@string/sample_text"/>
 
-    </LinearLayout>
+    </FrameLayout>
 </androidx.cardview.widget.CardView>

@@ -1,8 +1,8 @@
 package ru.slavicsky.chuckjokesapp.api.services
 
-import ru.slavicsky.chuckjokesapp.AppConstants
+private const val BASE_URL = "https://api.icndb.com"
 
 object ApiFactory{
-    val chuckNorrisApi : ChuckNorrisApi  = RetrofitFactory.retrofit(AppConstants.BASE_URL)
+    val chuckNorrisApi : ChuckNorrisApi  = RetrofitFactory.retrofit(BASE_URL)
         .create(ChuckNorrisApi::class.java)
 }

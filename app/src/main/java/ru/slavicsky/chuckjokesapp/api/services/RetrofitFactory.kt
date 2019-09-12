@@ -6,7 +6,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.slavicsky.chuckjokesapp.BuildConfig
 
 object RetrofitFactory {
 
@@ -28,16 +27,16 @@ object RetrofitFactory {
     }
 
     private val client =
-            OkHttpClient().newBuilder()
-                .addInterceptor(loggingInterceptor)
-                .addInterceptor(authInterceptor)
-                .build()
+        OkHttpClient().newBuilder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+            .build()
 
-            fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
-                .client(client)
-                .baseUrl(baseUrl)
-                .addConverterFactory(MoshiConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .build()
+    fun retrofit(baseUrl: String): Retrofit = Retrofit.Builder()
+        .client(client)
+        .baseUrl(baseUrl)
+        .addConverterFactory(MoshiConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .build()
 
-        }
+}

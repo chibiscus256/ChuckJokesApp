@@ -16,7 +16,7 @@ import ru.slavicsky.chuckjokesapp.view.adapters.JokeListAdapter
 
 class JokesFragment : Fragment() {
     private lateinit var jokeAdapter: JokeListAdapter
-    lateinit var jokes: List<JokeResponse>
+    private val jokes: MutableList<JokeResponse> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,19 +29,24 @@ class JokesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_jokes, container, false)
-        val recyclerView = root.findViewById(R.id.recycler_view_jokes) as RecyclerView
+        val recyclerView = root.findViewById(R.id.jokes_list) as RecyclerView
         val layoutManager = WrapContentLinearLayoutManager(this.context)
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = jokeAdapter
 
-        val resultsButton = root.findViewById(R.id.results_button) as Button
-        val editText = root.findViewById(R.id.search_text) as EditText
+        val resultsButton = root.findViewById(R.id.button_results) as Button
+        val editText = root.findViewById(R.id.search_field) as EditText
 
         resultsButton.setOnClickListener {
-            resultsButton.reload(input = editText.text, adapter = jokeAdapter)
+            resultsButton.reload(editText.text, jokeAdapter)
         }
         return root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
     }
 }
 

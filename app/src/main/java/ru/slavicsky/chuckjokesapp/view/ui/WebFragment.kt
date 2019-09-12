@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import ru.slavicsky.chuckjokesapp.AppConstants.API_URL
 import ru.slavicsky.chuckjokesapp.R
 
 class WebFragment : Fragment() {
+    companion object {
+        private const val API_URL = "http://www.icndb.com/api/"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,4 +28,6 @@ class WebFragment : Fragment() {
         mWebView.loadUrl(API_URL)
         return root
     }
+
+
 }
