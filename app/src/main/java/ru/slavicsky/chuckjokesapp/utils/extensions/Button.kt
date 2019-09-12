@@ -1,5 +1,6 @@
 package ru.slavicsky.chuckjokesapp.utils.extensions
 
+import android.content.Context
 import android.text.Editable
 import android.view.View
 import android.widget.Button
@@ -11,7 +12,13 @@ import ru.slavicsky.chuckjokesapp.models.GetJokesResponse
 import ru.slavicsky.chuckjokesapp.view.adapters.JokeListAdapter
 
 fun Button.reload(input: Editable, adapter: JokeListAdapter) {
-    val number = Integer.parseInt(input.toString())
+    var number = 1
+    try{
+        number = Integer.parseInt(input.toString())
+    }catch (exception : NumberFormatException){
+        context.toast("Bad input")
+    }
+
     val jokesService = ApiFactory.chuckNorrisApi
     val call = jokesService.getJokes(number = number)
     var getJokesResponse: GetJokesResponse?
