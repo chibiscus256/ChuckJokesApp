@@ -8,7 +8,7 @@ import ru.slavicsky.chuckjokesapp.R
 import ru.slavicsky.chuckjokesapp.models.JokeResponse
 import ru.slavicsky.chuckjokesapp.view.viewholder.ViewHolder
 
-class JokeListAdapter(private val jContext: Context) :
+class Adapter(private val jContext: Context) :
     RecyclerView.Adapter<ViewHolder>() {
 
     var jokes: MutableList<JokeResponse> = arrayListOf()
@@ -25,5 +25,9 @@ class JokeListAdapter(private val jContext: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val joke = jokes[position]
         holder.bindView(joke)
+    }
+
+    fun loadlist(list: MutableList<JokeResponse>) {
+        jokes = list
     }
 }

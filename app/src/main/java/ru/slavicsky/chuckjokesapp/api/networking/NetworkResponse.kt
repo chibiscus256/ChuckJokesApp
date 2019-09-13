@@ -5,9 +5,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.slavicsky.chuckjokesapp.api.services.ApiFactory
 import ru.slavicsky.chuckjokesapp.models.GetJokesResponse
-import ru.slavicsky.chuckjokesapp.view.adapters.JokeListAdapter
+import ru.slavicsky.chuckjokesapp.view.adapters.Adapter
 
-fun getNetworkResponse(adapter : JokeListAdapter, number: Int) {
+fun getNetworkResponse(adapter : Adapter, number: Int) {
     val jokesService = ApiFactory.chuckNorrisApi
     val call = jokesService.getJokes(number)
     var getJokesResponse: GetJokesResponse?
