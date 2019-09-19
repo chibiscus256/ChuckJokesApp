@@ -11,21 +11,14 @@ import ru.slavicsky.chuckjokesapp.view.adapters.JokesAdapter
 
 class JokesViewModel : ViewModel() {
 
-    val service: ChuckNorrisApi = RetrofitClient().getRetrofit().create(ChuckNorrisApi::class.java)
-    val jokesList = service.getJokes(12)
+    private val jokesLiveData = MutableLiveData<List<Joke>>()
 
-/*    fun getData(): LiveData<String> {
-        if (data == null) {
-            data = MutableLiveData<Any>().toInt()
-            loadData()
+    fun getJokesLiveData() = jokesLiveData
+
+    fun requestJokes(count: Int){
+        RepositoryProvider.requestJokes(count){
+            jokesLiveData.postValue(it)
         }
-        return data
     }
-
-    fun loadList(jokesNumber: Int, adapter: JokesAdapter) {
-        viewModelScope.launch {
-            adapter.jokesList.getNetworkResponse(jokesNumber)
-            println(jokesList)
-        }
-    }*/
+}
 }

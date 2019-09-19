@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.button_and_edittext.*
@@ -30,7 +31,6 @@ class JokesFragment : Fragment() {
 
     private val TAG = "myLogs"
     private lateinit var jokesViewModel: JokesViewModel
-    private val adapter = JokesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,9 +45,6 @@ class JokesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        jokes_list.layoutManager = LinearLayoutManager(activity)
-        jokes_list.adapter = adapter
-
         val binding: FragmentJokesBinding? = DataBindingUtil.bind(view)
         val resultsButton = button_results as Button
         val editText = search_field as EditText
@@ -56,9 +53,22 @@ class JokesFragment : Fragment() {
 
         resultsButton.setOnClickListener {
             val jokesNumber = resultsButton.checkInput(editText.text)
-            jokesViewModel.service.getJokes(jokesNumber)
+            if (jokesNumber < 300) jokesViewModel.requestJokes(jokesNumber)
             Log.d(TAG, "button pressed")
         }
+
+        initRecycler()
+    }
+
+
+    private fun initRecycler(){
+        val adapter = JokesAdapter()
+        jokes_list.layoutManager = LinearLayoutManager(activity)
+        jokes_list.adapter = adapter
+
+        jokesViewModel.getJokesLiveData().observe(this, Observer {
+            adapter.loadlist(it)
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

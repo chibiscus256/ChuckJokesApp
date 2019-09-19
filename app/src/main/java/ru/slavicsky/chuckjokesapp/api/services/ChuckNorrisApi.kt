@@ -8,6 +8,7 @@ import ru.slavicsky.chuckjokesapp.model.Joke
 import ru.slavicsky.chuckjokesapp.model.JokesResponse
 
 interface ChuckNorrisApi {
-    @GET("jokesList/random/{number}")
-    fun getJokes(@Path("number") number: Int): LiveData<ApiResponse<JokesResponse>>
+    @GET("jokes/random/{number}")
+    fun getJokes(@Path("number") number: Int): Call<JokesResponse>
 }
+
