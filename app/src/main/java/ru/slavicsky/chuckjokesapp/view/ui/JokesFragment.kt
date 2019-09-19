@@ -1,6 +1,5 @@
 package ru.slavicsky.chuckjokesapp.view.ui
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,55 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.button_and_edittext.*
+import kotlinx.android.synthetic.main.fragment_jokes.*
 import ru.slavicsky.chuckjokesapp.R
-import ru.slavicsky.chuckjokesapp.components.WrapContentLinearLayoutManager
-import ru.slavicsky.chuckjokesapp.models.JokeResponse
-import ru.slavicsky.chuckjokesapp.utils.extensions.reload
-import ru.slavicsky.chuckjokesapp.view.adapters.Adapter
-import java.io.Serializable
-
+import ru.slavicsky.chuckjokesapp.databinding.FragmentJokesBinding
+import ru.slavicsky.chuckjokesapp.model.repo.JokeRepository
+import ru.slavicsky.chuckjokesapp.utils.extensions.checkInput
+import ru.slavicsky.chuckjokesapp.view.adapters.JokesAdapter
+import ru.slavicsky.chuckjokesapp.viewmodel.JokesViewModel
 
 class JokesFragment : Fragment() {
 
-    private lateinit var pref: SharedPreferences
+    lateinit var binding: FragmentJokesBinding
+
+    companion object {
+        fun newInstance() = JokesFragment()
+    }
+
     private val TAG = "myLogs"
-    private lateinit var adapter: Adapter
-    private var jokes : MutableList<JokeResponse> = arrayListOf()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter = context?.let(::Adapter)!!
-        Log.d(TAG, "onCreate")
-        adapter.jokes = jokes
-    }
-
-    @Override
-    override fun onActivityCreated(savedInstanceState : Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d(TAG, "onActivityCreated")
-        savedInstanceState?.putSerializable("list state", adapter.jokes as Serializable)
-    }
-
-    override fun onPause() {
-        Log.d(TAG, "In onsave")
-        jokes = adapter.jokes
-        println(jokes)
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        Log.d(TAG, "In onResume")
-        println(jokes)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        Log.d(TAG, "onViewStateRestored")
-    }
+    private lateinit var jokesViewModel: JokesViewModel
+    private val adapter = JokesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,24 +38,33 @@ class JokesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d(TAG, "onCreateView")
-        val root = inflater.inflate(R.layout.fragment_jokes, container, false)
-        val recyclerView = root.findViewById(R.id.jokes_list) as RecyclerView
-        val layoutManager = WrapContentLinearLayoutManager(this.context)
-        recyclerView.layoutManager = layoutManager
 
-        recyclerView.adapter = adapter
+        return inflater.inflate(R.layout.fragment_jokes, container, false)
+    }
 
-        val resultsButton = root.findViewById(R.id.button_results) as Button
-        val editText = root.findViewById(R.id.search_field) as EditText
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        jokes_list.layoutManager = LinearLayoutManager(activity)
+        jokes_list.adapter = adapter
+
+        val binding: FragmentJokesBinding? = DataBindingUtil.bind(view)
+        val resultsButton = button_results as Button
+        val editText = search_field as EditText
+
+        jokesViewModel = ViewModelProviders.of(this).get(JokesViewModel::class.java)
 
         resultsButton.setOnClickListener {
-            resultsButton.reload(editText.text, adapter)
+            val jokesNumber = resultsButton.checkInput(editText.text)
+            jokesViewModel.service.getJokes(jokesNumber)
             Log.d(TAG, "button pressed")
         }
-        return root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
     }
 }
-
 
 
 

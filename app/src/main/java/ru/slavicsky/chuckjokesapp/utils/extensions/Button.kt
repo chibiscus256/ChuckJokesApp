@@ -2,18 +2,17 @@ package ru.slavicsky.chuckjokesapp.utils.extensions
 
 import android.text.Editable
 import android.widget.Button
-import ru.slavicsky.chuckjokesapp.api.networking.getNetworkResponse
-import ru.slavicsky.chuckjokesapp.view.adapters.Adapter
+import ru.slavicsky.chuckjokesapp.view.adapters.JokesAdapter
 
-fun Button.reload(input: Editable, adapter: Adapter) {
-    val number: Int
+fun Button.checkInput(input: Editable) : Int {
+    var number: Int = 1
     try {
         number = Integer.parseInt(input.toString())
         require(number <= 300)
-        getNetworkResponse(adapter, number)
     } catch (exception: NumberFormatException) {
         context.toast("Bad input")
     } catch (exception: IllegalArgumentException) {
-        context.toast("Too much jokes")
+        context.toast("Too much jokesList")
     }
+    return number
 }

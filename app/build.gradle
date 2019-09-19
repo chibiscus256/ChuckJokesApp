@@ -4,7 +4,12 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
+    dataBinding {
+        enabled = true
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
     compileOptions {
@@ -45,6 +50,20 @@ dependencies {
     def retrofit2_version = "2.5.0"
     def okhttp3_version = "3.12.0"
     def kotlinCoroutineVersion = "1.0.1"
+    def lifecycle_version = "1.1.1"
+    def room_version = "1.1.1"
+
+    // Room components
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
+
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    kapt "android.arch.lifecycle:compiler:1.1.1"
+
+    // ViewModel
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
 
     //Moshi
     implementation "com.squareup.moshi:moshi:$moshiVersion"
@@ -61,7 +80,6 @@ dependencies {
     //recyclerView
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.android.support:recyclerview-v7:+'
 
     ///cardView
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -79,5 +97,13 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
     implementation 'androidx.navigation:navigation-ui:2.1.0'
     implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.3.50"
+    compile 'com.android.support:support-annotations:28.0.0'
+
+    // Dagger2
+    implementation "com.google.dagger:dagger:2.23.1"
+    implementation "com.google.dagger:dagger-android:2.23.1"
+    implementation "com.google.dagger:dagger-android-support:2.23.1"
+    kapt "com.google.dagger:dagger-compiler:2.23.1"
+    kapt "com.google.dagger:dagger-android-processor:2.23.1"
 
 }
