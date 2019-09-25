@@ -1,5 +1,6 @@
 package ru.slavicsky.chuckjokesapp.view.viewholder
 
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.text.HtmlCompat.fromHtml

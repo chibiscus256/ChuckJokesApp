@@ -3,19 +3,14 @@ package ru.slavicsky.chuckjokesapp.view.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import ru.slavicsky.chuckjokesapp.R
-import ru.slavicsky.chuckjokesapp.api.services.ApiFactory
 import ru.slavicsky.chuckjokesapp.model.Joke
-import ru.slavicsky.chuckjokesapp.model.JokesResponse
 import ru.slavicsky.chuckjokesapp.view.viewholder.ViewHolder
 
-class JokesAdapter() :
+class JokesAdapter :
     RecyclerView.Adapter<ViewHolder>() {
 
-    var jokesList: MutableList<Joke> = arrayListOf()
+    private var jokesList: MutableList<Joke> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.joke_item, parent, false)
@@ -32,7 +27,9 @@ class JokesAdapter() :
     }
 
 
-    fun loadlist(list: MutableList<Joke>) {
-        jokesList = list
+    fun loadlist(list: List<Joke>) {
+        jokesList.clear()
+        jokesList.addAll(list)
+        notifyDataSetChanged()
     }
 }

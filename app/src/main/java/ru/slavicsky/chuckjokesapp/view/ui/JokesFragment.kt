@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.button_and_edittext.*
 import kotlinx.android.synthetic.main.fragment_jokes.*
 import ru.slavicsky.chuckjokesapp.R
 import ru.slavicsky.chuckjokesapp.databinding.FragmentJokesBinding
-import ru.slavicsky.chuckjokesapp.model.repo.JokeRepository
 import ru.slavicsky.chuckjokesapp.utils.extensions.checkInput
 import ru.slavicsky.chuckjokesapp.view.adapters.JokesAdapter
 import ru.slavicsky.chuckjokesapp.viewmodel.JokesViewModel
@@ -31,6 +31,11 @@ class JokesFragment : Fragment() {
 
     private val TAG = "myLogs"
     private lateinit var jokesViewModel: JokesViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +68,7 @@ class JokesFragment : Fragment() {
 
     private fun initRecycler(){
         val adapter = JokesAdapter()
-        jokes_list.layoutManager = LinearLayoutManager(activity)
+        jokes_list.layoutManager = LinearLayoutManager(activity) as RecyclerView.LayoutManager?
         jokes_list.adapter = adapter
 
         jokesViewModel.getJokesLiveData().observe(this, Observer {
