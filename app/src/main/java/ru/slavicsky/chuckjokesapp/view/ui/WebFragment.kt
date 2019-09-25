@@ -17,6 +17,11 @@ class WebFragment : Fragment() {
         private const val API_URL = "http://www.icndb.com/api/"
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val actionBar = (activity as AppCompatActivity).supportActionBar

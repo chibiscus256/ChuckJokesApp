@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.button_and_edittext.*
 import kotlinx.android.synthetic.main.fragment_jokes.*
 import ru.slavicsky.chuckjokesapp.R
@@ -34,7 +33,6 @@ class JokesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
     }
 
     override fun onCreateView(
@@ -61,14 +59,12 @@ class JokesFragment : Fragment() {
             if (jokesNumber < 300) jokesViewModel.requestJokes(jokesNumber)
             Log.d(TAG, "button pressed")
         }
-
         initRecycler()
     }
 
-
-    private fun initRecycler(){
+    private fun initRecycler() {
         val adapter = JokesAdapter()
-        jokes_list.layoutManager = LinearLayoutManager(activity) as RecyclerView.LayoutManager?
+        jokes_list.layoutManager = LinearLayoutManager(activity)
         jokes_list.adapter = adapter
 
         jokesViewModel.getJokesLiveData().observe(this, Observer {
@@ -76,8 +72,14 @@ class JokesFragment : Fragment() {
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onSaveInstanceState(outState: Bundle) {
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onDetach() {
+
+        super.onDetach()
     }
 }
 
