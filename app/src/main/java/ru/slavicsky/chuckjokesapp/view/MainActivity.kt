@@ -17,7 +17,7 @@ import ru.slavicsky.chuckjokesapp.view.ui.JokesFragment.Companion.newInstance
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mContent : Fragment
+    private lateinit var mContent: Fragment
 
     companion object {
         private const val SAVE_STATE = "save_state"
@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity() {
         ).apply { setupActionBarWithNavController(navController, this) }
         navView.setupWithNavController(navController)
 
-/*        if (savedInstanceState != null) {
+        if (savedInstanceState != null) {
             val jokesFragment = newInstance()
             replaceFragment(jokesFragment, R.id.fragment_container)
-        }*/
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
