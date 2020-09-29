@@ -1,4 +1,4 @@
-package ru.slavicsky.chuckjokesapp.api.networking
+package ru.slavicsky.chuckjokesapp.data.api.remote
 
 import ru.slavicsky.chuckjokesapp.model.Joke
 

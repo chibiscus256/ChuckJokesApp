@@ -22,33 +22,23 @@ import ru.slavicsky.chuckjokesapp.viewmodel.JokesViewModel
 
 class JokesFragment : Fragment() {
 
-    lateinit var binding: FragmentJokesBinding
-
     companion object {
         fun newInstance() = JokesFragment()
     }
 
-    private val TAG = "myLogs"
     private lateinit var jokesViewModel: JokesViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d(TAG, "onCreateView")
-
         return inflater.inflate(R.layout.fragment_jokes, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding: FragmentJokesBinding? = DataBindingUtil.bind(view)
         val resultsButton = button_results as Button
         val editText = search_field as EditText
 
@@ -57,7 +47,6 @@ class JokesFragment : Fragment() {
         resultsButton.setOnClickListener {
             val jokesNumber = resultsButton.checkInput(editText.text)
             if (jokesNumber < 300) jokesViewModel.requestJokes(jokesNumber)
-            Log.d(TAG, "button pressed")
         }
         initRecycler()
     }
@@ -70,16 +59,6 @@ class JokesFragment : Fragment() {
         jokesViewModel.getJokesLiveData().observe(this, Observer {
             adapter.loadlist(it)
         })
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onDetach() {
-
-        super.onDetach()
     }
 }
 

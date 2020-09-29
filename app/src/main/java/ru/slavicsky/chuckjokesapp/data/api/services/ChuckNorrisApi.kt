@@ -1,10 +1,8 @@
-package ru.slavicsky.chuckjokesapp.api.services
+package ru.slavicsky.chuckjokesapp.data.api.services
 
-import androidx.lifecycle.LiveData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
-import ru.slavicsky.chuckjokesapp.model.Joke
 import ru.slavicsky.chuckjokesapp.model.JokesResponse
 
 interface ChuckNorrisApi {

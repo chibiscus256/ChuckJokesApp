@@ -1,11 +1,11 @@
-package ru.slavicsky.chuckjokesapp.api.networking
+package ru.slavicsky.chuckjokesapp.data.api.remote
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.slavicsky.chuckjokesapp.api.services.ChuckNorrisApi
+import ru.slavicsky.chuckjokesapp.data.api.services.ChuckNorrisApi
 import ru.slavicsky.chuckjokesapp.model.Joke
 import ru.slavicsky.chuckjokesapp.model.JokesResponse
 
@@ -14,8 +14,6 @@ class RestProvider {
         return Retrofit.Builder()
             .baseUrl("https://api.icndb.com")
             .addConverterFactory(MoshiConverterFactory.create())
-            //Без нее тут легче будет
-//            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
     }
 
