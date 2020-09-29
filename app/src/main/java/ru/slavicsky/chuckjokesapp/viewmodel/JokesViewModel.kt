@@ -2,7 +2,6 @@ package ru.slavicsky.chuckjokesapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.slavicsky.chuckjokesapp.data.api.remote.RepositoryProvider
 import ru.slavicsky.chuckjokesapp.model.Joke
 
 class JokesViewModel : ViewModel() {
