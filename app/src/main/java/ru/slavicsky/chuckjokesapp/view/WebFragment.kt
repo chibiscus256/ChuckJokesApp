@@ -1,4 +1,4 @@
-package ru.slavicsky.chuckjokesapp.view.ui
+package ru.slavicsky.chuckjokesapp.view
 
 import android.content.Context
 import android.os.Bundle
@@ -9,9 +9,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import ru.slavicsky.chuckjokesapp.R
 
-
+@AndroidEntryPoint
 class WebFragment : Fragment() {
     companion object {
         private const val API_URL = "http://www.icndb.com/api/"

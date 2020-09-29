@@ -17,5 +17,6 @@
     <string name="sample_text">sample text</string>
     <string name="title_web">Web</string>
     <string name="title_jokes">Jokes</string>
+    <string name="no_data">No data acquired; check your Internet connection and try again later</string>
 
 </resources>

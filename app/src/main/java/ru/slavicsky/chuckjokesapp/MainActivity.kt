@@ -1,4 +1,4 @@
-package ru.slavicsky.chuckjokesapp.view
+package ru.slavicsky.chuckjokesapp
 
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -9,12 +9,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import ru.slavicsky.chuckjokesapp.R
-import ru.slavicsky.chuckjokesapp.utils.extensions.addFragment
+import dagger.hilt.android.AndroidEntryPoint
 import ru.slavicsky.chuckjokesapp.utils.extensions.replaceFragment
-import ru.slavicsky.chuckjokesapp.view.ui.JokesFragment.Companion.newInstance
+import ru.slavicsky.chuckjokesapp.view.JokesFragment.Companion.newInstance
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mContent: Fragment

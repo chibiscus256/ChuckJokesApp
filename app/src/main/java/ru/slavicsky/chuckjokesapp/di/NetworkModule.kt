@@ -13,6 +13,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import ru.slavicsky.chuckjokesapp.BuildConfig
 import ru.slavicsky.chuckjokesapp.data.api.services.JokesService
 import ru.slavicsky.chuckjokesapp.data.api.services.JokesService.Companion.ENDPOINT
+import ru.slavicsky.chuckjokesapp.data.repository.DataRepository
 import javax.inject.Singleton
 
 @Module
@@ -35,6 +36,11 @@ object NetworkModule {
             .build()
             .create(JokesService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideDataRepository(service: JokesService) =
+        DataRepository(service)
 
     @API
     @Provides

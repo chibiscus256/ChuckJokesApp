@@ -20,6 +20,8 @@
     
     <color name="colorHintUnselected">#808080</color>
 
+    <color name="dbl_yellow_500">#ffff63</color>
+
 
 
 </resources>

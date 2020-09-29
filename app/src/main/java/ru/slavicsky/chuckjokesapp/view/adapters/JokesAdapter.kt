@@ -1,11 +1,13 @@
 package ru.slavicsky.chuckjokesapp.view.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import ru.slavicsky.chuckjokesapp.R
 import ru.slavicsky.chuckjokesapp.model.Joke
-import ru.slavicsky.chuckjokesapp.view.viewholder.ViewHolder
 
 class JokesAdapter :
     RecyclerView.Adapter<ViewHolder>() {
@@ -31,5 +33,13 @@ class JokesAdapter :
         jokesList.clear()
         jokesList.addAll(list)
         notifyDataSetChanged()
+    }
+}
+class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private val jokeView: TextView? = itemView.findViewById(R.id.joke_text)
+
+    fun bindView(entity: Joke) {
+        val newString: String = HtmlCompat.fromHtml(entity.value, 0).toString()
+        jokeView?.text = newString
     }
 }
