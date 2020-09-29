@@ -4,6 +4,6 @@ import com.squareup.moshi.Json
 import java.io.Serializable
 
 data class Joke(
-    @field:Json(name = "joke")
+    @Json(name = "joke")
     val value: String
 ) : Serializable

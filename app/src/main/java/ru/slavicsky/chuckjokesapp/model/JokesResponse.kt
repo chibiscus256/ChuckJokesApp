@@ -1,9 +1,9 @@
 package ru.slavicsky.chuckjokesapp.model
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.io.Serializable
 
 data class JokesResponse(
-    @field:Json(name = "value")
-    val jokes: MutableList<Joke>
+    @Json(name = "value") val jokes: List<Joke> = listOf()
 ) : Serializable
