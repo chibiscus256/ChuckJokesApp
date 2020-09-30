@@ -20,7 +20,12 @@ class WebFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+/*        val actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar!!.title = "Api info"*/
     }
 
     override fun onCreateView(
@@ -31,10 +36,10 @@ class WebFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_web, container, false)
 
-        val mWebView = root.findViewById(R.id.web_view) as WebView
+/*        val mWebView = root.findViewById(R.id.web_view) as WebView
         mWebView.settings.javaScriptEnabled = true
         mWebView.webViewClient = WebViewClient()
-        mWebView.loadUrl(API_URL)
+        mWebView.loadUrl(API_URL)*/
         return root
     }
 
