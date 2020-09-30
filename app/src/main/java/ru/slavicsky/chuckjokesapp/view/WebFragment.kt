@@ -20,13 +20,7 @@ class WebFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val actionBar = (activity as AppCompatActivity).supportActionBar
-        actionBar!!.title = "Api info"
     }
 
     override fun onCreateView(
