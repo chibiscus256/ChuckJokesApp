@@ -1,54 +1,54 @@
 package ru.slavicsky.chuckjokesapp
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import ru.slavicsky.chuckjokesapp.utils.extensions.replaceFragment
-import ru.slavicsky.chuckjokesapp.view.JokesFragment.Companion.newInstance
+import ru.slavicsky.chuckjokesapp.view.navigation.setupWithNavController
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mContent: Fragment
-
-    companion object {
-        private const val SAVE_STATE = "save_state"
-    }
+    private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val navView: BottomNavigationView = this.findViewById(R.id.navigation_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-        savedInstanceState?.getBundle(SAVE_STATE)
-        val mContent =
-            savedInstanceState?.let { supportFragmentManager.getFragment(it, SAVE_STATE) }
-
-        AppBarConfiguration(
-            setOf(
-                R.id.navigation_jokes,
-                R.id.navigation_web
-            )
-        ).apply { setupActionBarWithNavController(navController, this) }
-        navView.setupWithNavController(navController)
-
-        if (savedInstanceState != null) {
-            val jokesFragment = newInstance()
-            replaceFragment(jokesFragment, R.id.fragment_container)
+        if (savedInstanceState == null) {
+            setupBottomNavigationBar()
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        supportFragmentManager.putFragment(outState, SAVE_STATE, mContent)
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupBottomNavigationBar()
     }
 
+    private fun setupBottomNavigationBar() {
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
+        val navGraphIds = listOf(R.navigation.jokes, R.navigation.web)
+
+        // Setup the bottom navigation view with a list of navigation graphs
+        val controller = bottomNavigationView.setupWithNavController(
+            navGraphIds = navGraphIds,
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.fragment_container,
+            intent = intent
+        )
+
+        // Whenever the selected controller changes, setup the action bar.
+        controller.observe(this, Observer { navController ->
+            setupActionBarWithNavController(navController)
+        })
+        currentNavController = controller
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
+    }
 }

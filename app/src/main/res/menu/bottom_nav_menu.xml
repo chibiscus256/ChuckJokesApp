@@ -4,11 +4,13 @@
     <item
         android:id="@+id/navigation_jokes"
         android:icon="@drawable/ic_jokes_24dp"
+        android:contentDescription="Jokes"
         android:title="@string/title_jokes" />
 
     <item
         android:id="@+id/navigation_web"
         android:icon="@drawable/ic_web_24dp"
+        android:contentDescription="Web"
         android:title="@string/title_web" />
 
 </menu>

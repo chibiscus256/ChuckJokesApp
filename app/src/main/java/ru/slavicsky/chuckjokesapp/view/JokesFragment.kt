@@ -3,15 +3,14 @@ package ru.slavicsky.chuckjokesapp.view
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.button_and_edittext.*
-import kotlinx.android.synthetic.main.fragment_jokes.*
 import ru.slavicsky.chuckjokesapp.R
 import ru.slavicsky.chuckjokesapp.data.Resource
 import ru.slavicsky.chuckjokesapp.databinding.FragmentJokesBinding
@@ -27,12 +26,8 @@ import ru.slavicsky.chuckjokesapp.viewmodel.JokesViewModel
 @AndroidEntryPoint
 class JokesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = JokesFragment()
-    }
-
-    val jokesViewModel: JokesViewModel by activityViewModels()
-    var binding: FragmentJokesBinding by autoCleared()
+    private val jokesViewModel: JokesViewModel by activityViewModels()
+    private var binding: FragmentJokesBinding by autoCleared()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,46 +39,43 @@ class JokesFragment : Fragment() {
             container,
             false
         )
-        context ?: return binding.root
-        observe(jokesViewModel.fetchedJokes, ::handleList)
         return inflater.inflate(R.layout.fragment_jokes, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val resultsButton = button_results as Button
-        val editText = search_field as EditText
+        binding.jokesList.layoutManager = LinearLayoutManager(requireContext())
 
-        resultsButton.setOnClickListener {
-            val jokesNumber = resultsButton.checkInput(editText.text)
-            if (jokesNumber < 300) jokesViewModel.requestJokes(jokesNumber)
+        observe(jokesViewModel.fetchedJokes, ::handleList)
+
+        btn_results.setOnClickListener {
+            val jokesNumber = btn_results.checkInput(et_search.text)
+            if (btn_results.checkInput(et_search.text) < 300) jokesViewModel.requestJokes(jokesNumber)
         }
-        initRecycler()
     }
 
     private fun bindListData(breedsResponse: List<Joke>) {
         if (!breedsResponse.isNullOrEmpty()) {
-            val breedsAdapter = JokesAdapter()
-            binding.jokesList.adapter = breedsAdapter
+            val jokesAdapter = JokesAdapter()
+            binding.jokesList.adapter = jokesAdapter
+            jokesAdapter.loadlist(breedsResponse)
             showDataView(true)
         } else {
             showDataView(false)
         }
     }
 
-    internal fun showLoadingView() {
+    private fun showLoadingView() {
         binding.pbLoading.toVisible()
         binding.tvNoData.toGone()
+        binding.jokesList.toGone()
     }
 
     private fun showDataView(show: Boolean) {
         binding.pbLoading.toGone()
-        binding.tvNoData.visibility = if (show) View.GONE else View.VISIBLE
-    }
-
-    private fun initRecycler() {
-        jokes_list.layoutManager = LinearLayoutManager(activity)
+        binding.jokesList.visibility = if (show) VISIBLE else GONE
+        binding.tvNoData.visibility = if (show) GONE else View.VISIBLE
     }
 
     private fun handleList(response: Resource<List<Joke>>) {

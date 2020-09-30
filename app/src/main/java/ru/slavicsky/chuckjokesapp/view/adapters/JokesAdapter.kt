@@ -25,9 +25,8 @@ class JokesAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val joke = jokesList[position]
-        holder.bindView(joke)
+        holder.bindData(joke)
     }
-
 
     fun loadlist(list: List<Joke>) {
         jokesList.clear()
@@ -35,10 +34,11 @@ class JokesAdapter :
         notifyDataSetChanged()
     }
 }
+
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val jokeView: TextView? = itemView.findViewById(R.id.joke_text)
 
-    fun bindView(entity: Joke) {
+    fun bindData(entity: Joke) {
         val newString: String = HtmlCompat.fromHtml(entity.value, 0).toString()
         jokeView?.text = newString
     }
