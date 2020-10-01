@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ru.slavicsky.chuckjokesapp.view.navigation
+package ru.slavicsky.chuckjokesapp.utils.extensions
 
 import android.content.Intent
 import android.util.SparseArray
