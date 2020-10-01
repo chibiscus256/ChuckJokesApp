@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/jokes">
+    app:startDestination="@id/navigation_jokes">
 
     <fragment
-        android:id="@+id/jokes"
+        android:id="@+id/navigation_jokes"
         android:name="ru.slavicsky.chuckjokesapp.view.JokesFragment"
         android:label="@string/title_jokes"
         tools:layout="@layout/fragment_jokes">
     </fragment>
     <fragment
-        android:id="@+id/web"
-        android:name="ru.slavicsky.chuckjokesapp.view.JokesFragment"
-        android:label="@string/title_jokes"
+        android:id="@+id/navigation_web"
+        android:name="ru.slavicsky.chuckjokesapp.view.WebFragment"
+        android:label="@string/title_web"
         tools:layout="@layout/fragment_web">
     </fragment>
 </navigation>
