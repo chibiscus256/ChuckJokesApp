@@ -31,7 +31,7 @@ class WebFragment : Fragment() {
 
         mWebView.settings.javaScriptEnabled = true
         mWebView.webViewClient = WebViewClient()
-        mWebView.settings.defaultZoom = WebSettings.ZoomDensity.FAR;
+        mWebView.settings.setSupportZoom(false)
         mWebView.loadUrl(API_URL)
         return root
     }
