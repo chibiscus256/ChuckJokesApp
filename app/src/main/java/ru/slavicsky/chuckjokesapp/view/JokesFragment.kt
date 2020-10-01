@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.button_and_edittext.*
+import ru.slavicsky.chuckjokesapp.MainActivity
 import ru.slavicsky.chuckjokesapp.R
 import ru.slavicsky.chuckjokesapp.data.Resource
 import ru.slavicsky.chuckjokesapp.databinding.FragmentJokesBinding
@@ -34,6 +36,7 @@ class JokesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).titleMain.text = getString(R.string.title_jokes)
         binding = FragmentJokesBinding.inflate(
             inflater,
             container,
