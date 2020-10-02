@@ -1,5 +1,6 @@
 package ru.slavicsky.chuckjokesapp.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +16,19 @@ import ru.slavicsky.chuckjokesapp.R
 
 @AndroidEntryPoint
 class WebFragment : Fragment() {
+
+    var mWebView: WebView? = null
+
     companion object {
         private const val API_URL = "http://www.icndb.com/api/"
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        mWebView?.saveState(outState)
+        super.onSaveInstanceState(outState)
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,12 +37,19 @@ class WebFragment : Fragment() {
         (activity as MainActivity).titleMain.text = getString(R.string.title_web)
 
         val root = inflater.inflate(R.layout.fragment_web, container, false)
-        val mWebView = root.findViewById(R.id.web_view) as WebView
+        mWebView = root.findViewById(R.id.web_view) as WebView
 
-        mWebView.settings.javaScriptEnabled = true
-        mWebView.webViewClient = WebViewClient()
-        mWebView.settings.setSupportZoom(false)
-        mWebView.loadUrl(API_URL)
+        if (savedInstanceState != null) {
+            mWebView?.restoreState(savedInstanceState)
+        } else {
+            mWebView?.apply {
+                settings.javaScriptEnabled = true
+                webViewClient = WebViewClient()
+                settings.setSupportZoom(false)
+                loadUrl(API_URL)
+            }
+        }
+
         return root
     }
 
